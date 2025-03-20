@@ -73,6 +73,12 @@ header {
     transition: background-color 0.3s ease;
 }
 
+.clear-btn {
+    background-color: white;
+    color: #7A7A7A;
+}
+
+
 .search-bar .search-btn {
     background-color: #1B1B1B;
 }

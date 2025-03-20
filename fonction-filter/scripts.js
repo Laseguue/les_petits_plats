@@ -9,7 +9,6 @@ boutonEffacer.addEventListener('click', () => {
   champRecherche.value = '';
   boutonEffacer.style.display = 'none';
   champRecherche.focus();
-  mettreAJourAffichageRecettes();
 });
 
 function montrerRecettes(listeRecettes) {
@@ -18,8 +17,8 @@ function montrerRecettes(listeRecettes) {
   zoneRecettes.innerHTML = '';
 
   compteurRecettes.textContent = listeRecettes.length === 1 
-    ? "1 recette" 
-    : `${listeRecettes.length} recettes`;
+  ? "1 recette" 
+  : `${listeRecettes.length} recettes`;
 
   listeRecettes.forEach(recette => {
     const carteRecette = document.createElement('div');
@@ -37,7 +36,7 @@ function montrerRecettes(listeRecettes) {
     titreRecette.textContent = recette.name;
     
     const titreDescription = document.createElement('h5');
-    titreDescription.textContent = 'Recette :';
+    titreDescription.textContent = 'Description :';
     
     const descriptionRecette = document.createElement('p');
     descriptionRecette.classList.add('description');
@@ -191,74 +190,19 @@ function mettreAJourTags(type, valeur) {
 function obtenirRecettesFiltrees() {
   const startTime = performance.now();
   const recherche = champRecherche.value.trim().toLowerCase();
-  const recettesFiltrees = [];
-
-  for (let i = 0; i < recipes.length; i++) {
-    const recette = recipes[i];
-
-    let matchRecherche = !recherche;
-    if (recherche) {
-      const nom = recette.name.toLowerCase();
-      if (nom.includes(recherche)) {
-        matchRecherche = true;
-      } else {
-        const desc = recette.description.toLowerCase();
-        if (desc.includes(recherche)) {
-          matchRecherche = true;
-        } else {
-          for (const ing of recette.ingredients) {
-            if (ing.ingredient.toLowerCase().includes(recherche)) {
-              matchRecherche = true;
-              break;
-            }
-          }
-        }
-      }
-    }
-    if (!matchRecherche) continue;
-
-    const ingredientsRecette = new Set(recette.ingredients.map(ing => ing.ingredient.toLowerCase()));
-    let matchIngredients = tagsSelectionnes.ingredients.size === 0;
-    if (tagsSelectionnes.ingredients.size > 0) {
-      matchIngredients = true;
-      for (const tag of tagsSelectionnes.ingredients) {
-        if (!ingredientsRecette.has(tag)) {
-          matchIngredients = false;
-          break;
-        }
-      }
-    }
-    if (!matchIngredients) continue;
-
+  
+  const recettesFiltrees = recipes.filter(recette => {
+    const ingredientsRecette = recette.ingredients.map(ing => ing.ingredient.toLowerCase());
     const appareilRecette = recette.appliance.toLowerCase();
-    let matchAppareils = tagsSelectionnes.appliances.size === 0;
-    if (tagsSelectionnes.appliances.size > 0) {
-      matchAppareils = true;
-      for (const tag of tagsSelectionnes.appliances) {
-        if (appareilRecette !== tag) {
-          matchAppareils = false;
-          break;
-        }
-      }
-    }
-    if (!matchAppareils) continue;
-
-    const ustensilesRecette = new Set(recette.ustensils.map(ust => ust.toLowerCase()));
-    let matchUstensiles = tagsSelectionnes.ustensils.size === 0;
-    if (tagsSelectionnes.ustensils.size > 0) {
-      matchUstensiles = true;
-      for (const tag of tagsSelectionnes.ustensils) {
-        if (!ustensilesRecette.has(tag)) {
-          matchUstensiles = false;
-          break;
-        }
-      }
-    }
-    if (!matchUstensiles) continue;
-
-    recettesFiltrees.push(recette);
-  }
-
+    const ustensilesRecette = recette.ustensils.map(ust => ust.toLowerCase());
+    
+    return [...tagsSelectionnes.ingredients].every(tag => ingredientsRecette.includes(tag)) &&
+           [...tagsSelectionnes.appliances].every(tag => appareilRecette.includes(tag)) &&
+           [...tagsSelectionnes.ustensils].every(tag => ustensilesRecette.includes(tag)) &&
+           (!recherche || recette.name.toLowerCase().includes(recherche) || 
+            recette.description.toLowerCase().includes(recherche) || 
+            ingredientsRecette.some(ing => ing.includes(recherche)));
+  });
   const endTime = performance.now();
   console.log(`temps de chargement : ${endTime - startTime} ms`);
   return recettesFiltrees;
@@ -283,12 +227,10 @@ montrerRecettes(recipes);
 const toutesOptions = collecterOptionsDisponibles(recipes);
 mettreAJourFiltres(toutesOptions);
 
-
-
 function runPerformanceTests() {
   console.log('=== Début des tests de performance ===');
-  const tempsExecutions = []; 
-  
+  const tempsExecutions = [];
+
   console.log('Test 1 - Recherche simple par nom');
   champRecherche.value = 'citron';
   tagsSelectionnes.ingredients.clear();
