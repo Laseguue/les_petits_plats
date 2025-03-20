@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Les Petits Plats</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Manrope:wght@200..800&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Raleway:ital,wght@0,100..900;1,100..900&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header>
+        <div class="logo-cont">
+            <img class="logo" src="img/Les-petits-plats.svg" alt="logo">
+            <img class="logo2" src="img/Group-3.svg" alt="logo2">
+        </div>
+        <section class="hero">
+            <h2>Cherchez parmi plus de 1500 recettes<br> du quotidien, simples et délicieuses</h2>
+            <div class="search-bar">
+                <input type="text" id="search-input" placeholder="Rechercher une recette, un ingrédient, ...">
+                <button class="clear-btn" id="clear-btn" style="display: none;">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" fill="currentColor" viewBox="0 0 24 24">
+                        <path d="M18 6L6 18M6 6l12 12" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"></path>
+                    </svg>
+                </button>
+                <button class="search-btn">
+                    <img src="img/Group-4.svg" alt="search-svg">
+                </button>
+            </div>
+        </section>
+    </header>
+    <main>
+        <div id="recipe-counter">0 recette</div>
+        <div class="filters" id="filters"></div>
+        <div id="selected-filters"></div>
+        <div class="recipes" id="recipes"></div>
+      </main>
+      <script src="recipes.js"></script>
+      <script src="scripts.js"></script>
+</body>
+</html>
