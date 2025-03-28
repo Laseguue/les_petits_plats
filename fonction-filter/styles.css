@@ -97,6 +97,29 @@ header {
     filter: invert(0%) brightness(0%);
 }
 
+.filter-search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .filter-search-wrapper input {
+    width: 100%;
+    padding-right: 40px; 
+  }
+  
+  .filter-search-wrapper .search-icon {
+    position: absolute;
+    right: 25px;
+    pointer-events: none;
+  }
+  
+  .filter-search-wrapper .clear-icon {
+    position: absolute;
+    right: 45px;
+    cursor: pointer;
+  }
+  
 
 .filter-with-count {
     display: flex;
@@ -180,6 +203,7 @@ header {
 }
 
   .filter-dropdown input {
+    width: 80%;
     margin: 5px;
     padding: 5px;
     border: 1px solid #ccc;
@@ -192,6 +216,9 @@ header {
   }
   
   .filter-dropdown li {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 400;
+    font-size: 0.9rem;
     padding: 8px;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -221,6 +248,9 @@ header {
 }
 
 .tag {
+    font-family: 'Manrope', sans-serif;
+    font-weight: 600;
+    font-size: 1rem;
     display: flex;
     justify-content: space-between;
     background-color: #FFD15B;
