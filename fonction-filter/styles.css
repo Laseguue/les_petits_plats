@@ -98,6 +98,12 @@ header {
 }
 
 
+.filter-with-count {
+    display: flex;
+    justify-content: space-between;
+
+}
+
 .filters {
     display: flex;
     gap: 20px;
@@ -119,20 +125,41 @@ header {
 
 .filter-container {
     position: relative;
-    display: inline-block;
+    display: flex;
+    flex-direction: column;
     width: 200px;
+    z-index: 100;
   }
   
-  .filter-button {
+.filter-button {
     width: 100%;
-    padding: 8px;
+    height: 40px;
+    padding: 8px 10px;
     background: white;
     border: 1px solid #ccc;
+    border-radius: 10px;
     cursor: pointer;
     text-align: left;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    position: relative;
+    z-index: 101;
+    transition: border-radius 0.3s ease, border 0.3s ease;
+}
+
+.filter-button .arrow-icon {
+    width: 12px;
+    height: 12px;
+    transition: transform 0.3s ease;
+}
+
+.filter-container .filter-button.dropdown-open {
+    border-bottom: none;
+    border-radius: 10px 10px 0 0;
   }
   
-  .filter-dropdown {
+.filter-dropdown {
     position: absolute;
     top: 100%;
     left: 0;
@@ -141,12 +168,18 @@ header {
     overflow-y: auto;
     background: white;
     border: 1px solid #ccc;
+    border-top: none;
+    border-radius: 0 0 10px 10px;
     display: none;
-    z-index: 100;
-  }
-  
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    transition: opacity 0.2s ease;
+  }  
+
+.filter-dropdown.no-top-border {
+    border-top: none;
+}
+
   .filter-dropdown input {
-    width: 90%;
     margin: 5px;
     padding: 5px;
     border: 1px solid #ccc;
@@ -166,6 +199,7 @@ header {
   
   .filter-dropdown li:hover {
     background: #FFD15B;
+    border-radius: 0 0 10px 10px;
   }
   
   .show {
@@ -177,7 +211,8 @@ header {
     font-size: 1.5rem;
     color: #1B1B1B;
     font-weight: 400;
-    margin: 20px 20px 0 0;
+    margin: 20px 0;
+    padding: 20px 70px 20px 70px;
 }
 
 #selected-filters{
@@ -186,14 +221,17 @@ header {
 }
 
 .tag {
+    display: flex;
+    justify-content: space-between;
     background-color: #FFD15B;
     color: #333;
     font-size: 1rem;
     font-weight: 100;
     padding: 5px 10px;
     border-radius: 5px;
-    width: fit-content;
+    width: 10%;
     cursor: pointer;
+    margin-top: 5px;
 }
 
 .recipes {
